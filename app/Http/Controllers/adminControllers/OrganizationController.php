@@ -90,7 +90,7 @@ class OrganizationController extends Controller
             'description' => $request->description,
         ]);
         event(new OrganizationAdded($organizationAdded, $password));
-        return redirect()->intended('admin/organization')->with('success', 'Organization ajoutée avec succes!');
+        return redirect()->intended('admin/organization')->with('success', 'Structure ajoutée avec succes!');
     }
 
     /**

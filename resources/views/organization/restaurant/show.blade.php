@@ -32,10 +32,10 @@
                         <h2 class="content-header-title float-start mb-0">Restaurant</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('restaurants.index') }}">Liste</a>
+                                <li class="breadcrumb-item"><a href="{{ route('org_restaurants.index') }}">Liste</a>
                                 </li>
                                 <li class="breadcrumb-item"><a
-                                        href="{{ route('restaurants.show', $restaurant->user->uuid) }}">{{$restaurant->user->firstname}}</a>
+                                        href="#">{{$restaurant->user->firstname}}</a>
                                 </li>
                                 <li class="breadcrumb-item active">Détails
                                 </li>

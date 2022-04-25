@@ -94,7 +94,7 @@
                         href="{{ asset('org/background') }}"><i data-feather="edit"></i><span
                             data-i18n="User Interface">Configuration générale</span></a>
 
-
+                </li>
             </ul>
         </div>
     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\restaurantsControllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -34,6 +35,23 @@ class AuthController extends Controller
 
     public function password_forgot() {
         return view('restaurants.auth.auth-forgot-password');
+    }
+
+    public function reset_password(){
+        return view('restaurants.auth.reset_password');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'string|required',
+            'confirm_password' => 'string|required|same:password'
+        ]);
+        Auth::user()->update([
+            'password' => Hash::make($request->password),
+            'updated_at' => auth()->user()->updated_at
+        ]);
+        return back()->with('successResetPassword', 'Mot de passe  changé avec succes Vos povez desormais vous connectez avec votre nouveau mot de passe');
     }
 
     public function update(Request $request)

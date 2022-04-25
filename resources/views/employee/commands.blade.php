@@ -36,51 +36,62 @@
                 <div class="col-12 col-xl-6">
                     <div class="part mt-2">
                         <h4 class="family_popone">Commandes actuelles</h4>
-                        <div class="row justify-content-center mt-2">
-                            @if (Auth::user())
-                                @foreach ($getCommands as $getCommand)
-                                    <div class="col-4">
-                                        <div class="card">
-                                            <img src="{{ asset('storage/dishes/' . $getCommand->dishes->picture1) }}"
-                                                class="dish_img rounded-top">
-                                            <div class="dish_info">
-                                                <p class="dish_name">{{ $getCommand->dishes->name }}</p>
-                                                <p class="small category">
-                                                    <span>Catégorie: </span>
-                                                    <span
-                                                        class="text-italic">{{ $getCommand->dishes->category->name }}</span>
-                                                </p>
-                                            </div>
+                      <div class="row justify-content-center mt-2">
+                        @if (Auth::user())
+                            @forelse ($getCommands as $getCommand)
+                                <div class="col-4">
+                                    <div class="card">
+                                        <img src="{{ asset('storage/dishes/' . $getCommand->dishes->picture1) }}"
+                                            class="dish_img rounded-top">
+                                        <div class="dish_info">
+                                            <p class="dish_name">{{ $getCommand->dishes->name }}</p>
+                                            <p class="small category">
+                                                <span>Catégorie: </span>
+                                                <span
+                                                    class="text-italic">{{ $getCommand->dishes->category->name }}</span>
+                                            </p>
                                         </div>
                                     </div>
-                                @endforeach
-                            @endif
-                        </div>
+                                </div>
+                                @empty
+                                <div class="alert alert-warning" role="alert">
+                                    <i data-feather="alert-circle"></i>
+                                  Aucune commande en cours de validation !!!
+                                </div>
+                            @endforelse
+                        @endif
+                    </div>
+                    {{ $getCommands->links() }}
                     </div>
                 </div>
                 <div class="col-12 col-xl-6">
                     <div class="part mt-2">
                         <h4 class="family_popone">Historiques des commandes</h4>
-                        <div class="row justify-content-center mt-2">
-                            {{-- Commands --}}
-                            @if (Auth::user())
-                                @foreach ($getCommandValidate as $Validate)
-                                    <div class="rounded bg-white command_historic">
-                                        <div class="command_img">
-                                            <img src="{{ asset('storage/dishes/' . $Validate->dishes->picture1) }}">
+                        {{-- Commands --}}
+                        @if (Auth::user())
+                            @forelse ($getCommandValidate as $Validate)
+                                <div class="rounded bg-white my-1 command_historic">
+                                    <div class="command_img">
+                                        <img src="{{ asset('storage/dishes/' . $Validate->dishes->picture1) }}">
+                                    </div>
+                                    <div class="command_text">
+                                        <div>
+                                            <h5 class="family_popone">{{ $Validate->dishes->name }}</h5>
                                         </div>
-                                        <div class="command_text">
-                                            <div>
-                                                <h5 class="family_popone">{{ $Validate->dishes->name }}</h5>
-                                            </div>
-                                            <div>
-                                                <span class="small text-success">Votre commande a été validée</span>
-                                            </div>
+                                        <div>
+                                            <span class="small text-success">Votre commande a été validée</span>
                                         </div>
                                     </div>
-                                @endforeach
-                            @endif
-                        </div>
+                                </div>
+                                @empty
+                                <div class="alert alert-warning mt-2" role="alert">
+                                    <i data-feather="alert-circle"></i>
+                                  Aucune commande en cours de validation !!!
+                                </div>
+                            @endforelse
+                        @endif
+                    </div>
+                    {{ $getCommandValidate->links() }}
                     </div>
                 </div>
             </div>
@@ -89,4 +100,4 @@
             <i data-feather="chevron-up"></i>
         </button>
     </x-parts.main>
-</x-parts.
+</x-parts.container>

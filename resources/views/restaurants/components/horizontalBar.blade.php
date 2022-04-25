@@ -52,7 +52,9 @@
                 </li>
                 <li class="dropdown nav-item" data-menu="dropdown"><a class=" nav-link d-flex align-items-center" href="{{ asset('restaurant/schedules') }}" ><i data-feather="edit"></i><span data-i18n="User Interface">Configuration Horaires</span></a>
                 </li>
-                <li class="dropdown nav-item" data-menu="dropdown"><a class=" nav-link d-flex align-items-center" href="#" ><i data-feather="edit"></i><span data-i18n="User Interface">Configuration Générale</span></a>
+                {{-- <li class="dropdown nav-item" data-menu="dropdown"><a class=" nav-link d-flex align-items-center" href="#" ><i data-feather="edit"></i><span data-i18n="User Interface">Configuration Générale</span></a>
+                </li> --}}
+                <li class="dropdown nav-item" data-menu="dropdown"><a class=" nav-link d-flex align-items-center" href="{{ asset('restaurant/commands') }}" ><i data-feather="command"></i><span data-i18n="User Interface">Commandes</span></a>
                 </li>
             </ul>
 

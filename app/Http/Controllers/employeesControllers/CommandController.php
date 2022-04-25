@@ -17,9 +17,9 @@ class CommandController extends Controller
      */
     public function index()
     {
-        $getCommands = Command::where('done',false)->get();
-        $getCommandValidate = Command::where('done',true)->get();
-        return view('employee.commands',compact('getCommands','getCommandValidate'));
+        $getCommands = Command::where('done', false)->orderBy('created_at','DESC')->paginate(3);
+        $getCommandValidate = Command::where('done', true)->paginate(3);
+        return view('employee.commands', compact('getCommands', 'getCommandValidate'));
     }
 
     /**
@@ -40,6 +40,7 @@ class CommandController extends Controller
      */
     public function store(Request $request)
     {
+
         $count = Ticket::where('employeeId', auth()->user()->custom->id)->pluck('ticketNumber')->toArray();
         $getNumberTickets = array_sum($count);
         if ($getNumberTickets === 0) {
@@ -47,16 +48,14 @@ class CommandController extends Controller
         } elseif (Auth::user()->custom->account->amount === 0) {
             return back()->with('warning', 'Veuillez recharger votre compte');
         } else {
-            Command::create([
+           Command::create([
                 'employeeId' => $request->employeeId,
                 'dishId' => $request->dishId,
+                'restaurantId' => $request->restaurantId,
                 'done' => false
             ]);
-            // $tickets = Ticket::where('employeeId', auth()->user()->custom->id)->first();
-            // $tickets->update([
-            //     'ticketNumber'=> $getNumberTickets - 1
-            // ]);
-            return redirect()->intended('command')->with('success','Votre commande a été effectuée avec succés et est en cours de validation.Merci');
+
+            return redirect()->intended('command')->with('success', 'Votre commande a été effectuée avec succés et est en cours de validation.Merci');
         }
     }
 

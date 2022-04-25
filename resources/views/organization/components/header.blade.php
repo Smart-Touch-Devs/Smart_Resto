@@ -84,6 +84,8 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a class="dropdown-item" href="page-profile.html"><i class="me-50" data-feather="user"></i> Profile</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('restaurant.resetPassword')}}"><i class="me-50" data-feather="user"></i>Mot de passe</a>
+                    <div class="dropdown-divider"></div>
                     <form action="{{ route('org.logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="dropdown-item w-100"><i class="ml-3" data-feather="power"></i>Se déconnecter</button>

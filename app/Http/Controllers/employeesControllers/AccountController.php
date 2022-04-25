@@ -4,13 +4,10 @@ namespace App\Http\Controllers\employeesControllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
-use App\Models\User;
-use App\Models\Org_resto;
 use App\Models\Restaurant;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class AccountController extends Controller
 {
@@ -45,24 +42,31 @@ class AccountController extends Controller
             'otp_code' => 'required',
         ]);
 
-        $response = Http::withHeaders([
-            'Authorization' => "Bearer " . env('SMTPAY_API_KEY')
-        ])->post("http://smtpay.net/api/payment/v1/pay", [
-            'id' => 'OM',
-            'customer_msisdn' => $request->phone,
-            'amount' => $request->amount,
-            'otp' => $request->otp_code
-        ]);
+        // $response = Http::withHeaders([
+        //     'Authorization' => "Bearer " . env('SMTPAY_API_KEY')
+        // ])->post("http://smtpay.net/api/payment/v1/pay", [
+        //     'id' => 'OM',
+        //     'customer_msisdn' => $request->phone,
+        //     'amount' => $request->amount,
+        //     'otp' => $request->otp_code
+        // ]);
 
-        $result = json_decode((string) $response->getBody(), true);
-        if (((int) $result['status']) === 200) {
-            $clientAccountAmount = auth()->user()->custom->account->amount;
-            Account::find(Auth::user()->custom->account->id)->update(['amount' => (int) $clientAccountAmount + (int) $request->amount]);
-            return redirect()->back()->with("success", "Votre dépôt a été un succès!");
-        } else {
-            return redirect()->back()->with('error', "Il y'a eu une erreur!Veuillez réessayer!");
-        }
+        // $result = json_decode((string) $response->getBody(), true);
+        // if (((int) $result['status']) === 200) {
+        //     $clientAccountAmount = auth()->user()->custom->account->amount;
+        //     Account::find(Auth::user()->custom->account->id)->update(['amount' => (int) $clientAccountAmount + (int) $request->amount]);
+        //     return redirect()->back()->with("success", "Votre dépôt a été un succès!");
+        // } else {
+        //     return redirect()->back()->with('error', "Il y'a eu une erreur!Veuillez réessayer!");
+        // }
+
+        $clientAccountAmount = auth()->user()->custom->account->amount;
+        $depositMontant = (int)$request->amount;
+        Account::find(Auth::user()->custom->account->id)->update(['amount' => $clientAccountAmount +   $depositMontant]);
+        return redirect()->back()->with("success", "Votre dépôt a été un succès!");
     }
+
+   
 
     public function tickets_index()
     {
@@ -80,24 +84,31 @@ class AccountController extends Controller
             'employeeId' => 'required',
             'ticketNumber' => 'required'
         ]);
-        $input = $request->all();
+        // $input = $request->all();
         $count = Ticket::where('employeeId', auth()->user()->custom->id)->pluck('ticketNumber')->toArray();
         $getNumberTickets = array_sum($count);
         $numberTicketsAuthorized = Auth::user()->custom->organization->ticketNumber;
         $ticketPrice = Auth::user()->custom->organization->ticketPrice;
         $getUserAmount = Auth::user()->custom->account->amount;
 
-        $ticketValue = ($request->ticketNumber * $ticketPrice) / $numberTicketsAuthorized;
-
+        $ticketValue =  $ticketPrice / $numberTicketsAuthorized;
+        $updateTicket = Ticket::where('employeeId', Auth::user()->custom->id)->first();
+        $updateAccount = Account::where('employeeId', Auth::user()->custom->id)->first();
+        $getAllTicket = $getNumberTickets + $request->ticketNumber;
 
         if ($ticketValue > $getUserAmount) {
             return back()->with('warning', 'Attention votre compte est insuffisant,veuillez recharger avant d \'effectuer un achat');
-        }
-        if ($numberTicketsAuthorized  >= $request->ticketNumber && $getNumberTickets < ($numberTicketsAuthorized)) {
-            Ticket::create($input);
-            $updateAccount = Account::where('employeeId',Auth::user()->custom->id)->first();
+        } elseif ((int)($ticketValue * $request->ticketNumber) > $getUserAmount) {
+
+            return back()->with('success', 'Le montant du nombre de ticket souhaité est superieur au montant disponible dans votre compte');
+        } elseif ($getNumberTickets === $numberTicketsAuthorized) {
+            return back()->with('success', 'Vous avez atteint le nombre de ticket fixé par l\'entreprise');
+        } elseif (($request->ticketNumber <= $numberTicketsAuthorized) && ($getAllTicket <=  $numberTicketsAuthorized)) {
+            $updateTicket->update([
+                'ticketNumber' => $getNumberTickets +  $request->ticketNumber
+            ]);
             $updateAccount->update([
-                'amount'=> $getUserAmount -  $ticketValue
+                'amount' => $getUserAmount -  ($ticketValue * $request->ticketNumber)
             ]);
             return back()->with('success', 'Achat effectué avec succès');
         } else {
@@ -110,6 +121,8 @@ class AccountController extends Controller
         $restaurants = Restaurant::paginate(4)->fragment('restaurants');
         return view('employee.restaurants', compact('restaurants'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.

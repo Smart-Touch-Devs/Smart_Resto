@@ -23,7 +23,7 @@
                     <div class="logo text-center my-5 ">
                         <img src="{{ asset('assets/employee/logo.png') }}" width="100px" alt="">
                     </div>
-                    @if($message = Session::get('error'))
+                    @if($message = Session::get('errors'))
                                 <div style="width: 98%;" class="mx-auto">
                                     <div class="alert alert-danger mt-1 alert-dismissible" role="alert">
                                         <div class="alert-body d-flex align-items-center">
@@ -37,7 +37,7 @@
                     <h2 class="text-center fw-bold gray_color">
                         Entrez votre code identifiant
                     </h2>
-                    
+
                     <div class="">
                         <form action="{{ route('checkCode') }}" method="post">
                             @csrf

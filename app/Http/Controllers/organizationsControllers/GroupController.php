@@ -132,7 +132,7 @@ class GroupController extends Controller
         Group::find($id)->update($inputs);
 
 
-        return redirect()->intended('org/groups')->with('success', 'Le groupe a été retiré avec succes');
+        return redirect()->intended('org/groups')->with('success', 'Les informations du groupe ont été modifié avec succes');
 
     }
 

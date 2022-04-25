@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 @empty
-                <p>Aucun restaurant disponible pour votre organisation.</p>
+                <p>Aucun restaurant disponible pour votre Structure.</p>
                 @endforelse
             </div>
         </div>

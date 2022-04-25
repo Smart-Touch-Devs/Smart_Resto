@@ -63,13 +63,14 @@ class AuthController extends Controller
         }
 
         $requestValues = array_values($request->all());
-        $input = (int) implode('', array_splice($requestValues, 1));
-        $employee = Employee::where('identityCode', '=', $input)->first();
-        if (!$employee) {
-            return response()->json(['error' => 'Code identifiant invalide!'], 400);
-        } else {
-            $input = (int) str_shuffle($input  . "5");
+        $input = (int) implode('', $requestValues);
+        $employee = Employee::where('identityCode',  $input)->first();
 
+        if (!$employee) {
+            return response()->json(['errors' => 'Code identifiant invalide!'], 400);
+        } else {
+
+            $input = (int) str_shuffle($input  . "5");
             $employee->update([
                 'identityCode' => $input,
                 'first_login' => false

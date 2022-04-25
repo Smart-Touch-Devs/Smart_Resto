@@ -16,4 +16,8 @@ class Ticket extends Model
     public function employees() {
         return $this->hasMany(Employee::class,'employeeId');
     }
+    public function command() {
+        return $this->belongsTo(Command::class,'commandId');
+    }
 }
+    

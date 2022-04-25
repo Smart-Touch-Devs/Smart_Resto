@@ -17,15 +17,20 @@
                 </div>
                 @endif
                 <div class="row">
-                    @foreach ($dishes as $dish)
+                    @forelse ($dishes as $dish)
                     <x-parts.card :dish='$dish'/>
-                    @endforeach
+                    @empty
+                    <div class="alert alert-warning mt-2" role="alert">
+                        <i data-feather="alert-circle"></i>
+                      Aucun plat disponible pour le moment !!!
+                    </div>
+                    @endforelse
                 </div>
                 <button id="smooth_scroll_btn" class="d-none">
                     <i data-feather="chevron-up"></i>
                 </button>
             </div>
-            {{ $dishes->links() }}
+            {{-- {{ $dishes->links() }} --}}
         </x-parts.main>
     </x-parts.container>
 @endsection

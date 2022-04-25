@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\employeesControllers\AccountController;
 use App\Http\Controllers\API\employeesControllers\HomeController;
 use App\Http\Controllers\API\employeesControllers\ForgotPasswordController;
+use App\Http\Controllers\API\employeesControllers\CommandController;
 
 
 /*
@@ -27,12 +28,19 @@ Route::group(['middleware' => 'auth:sanctum'],function(){
     Route::post('/logout',[AuthController::class, 'logout']);
     Route::resource('/account', AccountController::class); //pour voir les details d'un restaurant
     Route::get('/search',[HomeController::class, 'search']);//pour la recherche
+    Route::get('/dishes',[HomeController::class, 'index']); // Pour afficher les plats du jour
+    Route::post('/buy_ticket',[AccountController::class, 'buy_ticket']); //Achat de tickets
+    Route::get('/get_tickets',[AccountController::class, 'get_ticket']); //Obtenir le nombre de ticket du user
+    Route::post('/commands',[CommandController::class, 'store']);
+    Route::post('/deposit', [AccountController::class, 'deposit']); //Faire un depot dans son compte
+    Route::get('/show_details' ,[AccountController::class ,'show_details' ]); // Pour voir les details du restaurants
+    Route::get('/get_amount',[AccountController::class, 'get_amount']); //Obtenir le solde du User
+    Route::get('/userInformation' ,[AccountController::class, 'get_userInformation']); //pour recuperer les informations autres informations de l'utilisateurs
 });
 
 // Route::post('/changeEmail', [AuthController::class, 'changeEmail']);
 Route::get('/restaurants', [AccountController::class, 'restaurants']);
-Route::post("/login",[AuthController::class,'login']);
+Route::post('/login',[AuthController::class,'login']);
 Route::post('/check_code', [AuthController::class, 'checkCode']);
-Route::resource('/', HomeController::class);
 Route::post('/forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm']);
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm']);

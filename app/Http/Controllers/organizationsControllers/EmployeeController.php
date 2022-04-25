@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Account;
 use App\Models\Employee;
+use App\Models\Org_resto;
 use App\Models\Organization;
 use App\Models\Ticket;
 use App\Models\User;
@@ -107,7 +108,11 @@ class EmployeeController extends Controller
             'employeeId' => $addedEmployee->id,
             'ticketNumber' => 0
         ]);
-        
+        // Org_resto::create([
+        //     'organizationId' => $organization->id,
+        //     'restaurantId'
+        // ]);
+
         return redirect()->back()->with('success', 'Employé ajouté avec succes!');
     }
 

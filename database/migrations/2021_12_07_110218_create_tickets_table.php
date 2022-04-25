@@ -17,14 +17,14 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('employeeId');
             $table->integer('ticketNumber');
-            $table->string('paymentMethod');
+            $table->string('paymentMethod')->nullable();
             $table->timestamps();
 
             $table->foreign('employeeId')
             ->references('id')
             ->on('employees')
             ->onDelete('cascade');
-            
+
         });
     }
 

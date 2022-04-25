@@ -27,5 +27,7 @@ class Restaurant extends Model
 
     public function motifs() {return $this->hasMany(Motif::class);}
 
-    public function organizations() {return $this->belongsToMany(Organization::class, 'org_restos');}
+    public function organizations() {return $this->belongsToMany(Organization::class, 'org_restos','organization_id','restaurant_id');}
+
+    public function commands() {return $this->hasMany(Command::class,'restaurantId');}
 }

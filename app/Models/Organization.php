@@ -26,6 +26,6 @@ class Organization extends Model
 
     public function employees() {return $this->hasMany(Employee::class, 'organizationId');}
 
-    public function restaurants() {return $this->belongsToMany(Restaurant::class, 'org_restos', "organization_id",'restaurant_id');}
+    public function restaurants() {return $this->belongsToMany(Restaurant::class, 'org_restos', 'organization_id','restaurant_id');}
 
 }

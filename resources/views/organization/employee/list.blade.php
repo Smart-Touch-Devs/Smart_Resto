@@ -265,7 +265,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-1">
-                                    <label class="form-label" for="email">Addresse email</label>
+                                    <label class="form-label" for="email">Adresse email</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i data-feather="mail"></i></span>
                                         <input type="email" id="email" class="form-control" name="email"

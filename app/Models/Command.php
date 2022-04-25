@@ -12,14 +12,21 @@ class Command extends Model
     protected $fillable = [
         'employeeId',
         'dishId',
+        'restaurantId',
         'done'
     ];
 
-    public function employeeId() {
+    public function employee() {
         return $this->belongsTo(Employee::class, 'employeeId');
     }
 
     public function dishes() {
         return $this->belongsTo(Dish::class, 'dishId');
+    }
+    public function tickets() {
+        return $this->hasMany(Ticket::class, 'ticketId');
+    }
+    public function restaurant() {
+        return $this->belongsTo(restaurant::class);
     }
 }

@@ -22,18 +22,22 @@ class menuController extends Controller
     {
         $days = Day::all();
         $menus = Menu::all();
-        $menusDays = [];
-        $unappendDays = [];
-        foreach ($menus as $menu) {
-            array_push($menusDays, $menu->dayId);
-        }
+        // $menusDays = [];
+        // $unappendDays = [];
+        // foreach ($menus as $menu) {
+        //     array_push($menusDays, $menu->dayId);
+        // }
 
-        foreach ($days as $day) {
-            if(!in_array($day->id, $menusDays)) array_push($unappendDays, Day::find($day->id));
-        }
+        // foreach ($days as $day) {
+        //     if(!in_array($day->id, $menusDays)) array_push($unappendDays, Day::find($day->id));
+        // }
 
+        // return view('restaurants.menu.restaurant_menu', [
+        //     'days' => $unappendDays,
+        //     'menu' => $menus
+        // ]);
         return view('restaurants.menu.restaurant_menu', [
-            'days' => $unappendDays,
+            'days' => $days,
             'menu' => $menus
         ]);
     }

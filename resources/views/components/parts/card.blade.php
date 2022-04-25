@@ -20,12 +20,21 @@
                 <span class="text-italic">{{ $dish->category->name }}</span>
             </p>
         </div>
-        <button type="button" class=" dropdown-item confirm__dish__btn" data-bs-toggle="modal"
+
+        <form action="{{ route('command.store') }}" method="post" id="confirm__dish__form" style="">
+            @csrf
+            <input type="hidden" name="employeeId" value="{{ Auth::user()->custom->id }}">
+            <input type="hidden" name="dishId" value="{{ $dish->id }}">
+            <input type="hidden" name="restaurantId" value="{{ $dish->restaurant->user->id }}">
+            <button type="submit">Commander</button>
+        </form>
+
+        {{-- <button type="button" class="btn dropdown-item confirm__dish__btn" data-bs-toggle="modal"
             data-bs-target="#confirmModal" data-route="{{ route('command.store') }}">
             <span class="btn btn-warning">Commander</span>
-        </button>
+        </button> --}}
     </div>
-    <div class="modal fade modal-danger text-start" id="confirmModal" tabindex="-1" aria-labelledby="myModalLabel120"
+    {{-- <div class="modal fade modal-danger text-start" id="confirmModal" tabindex="-1" aria-labelledby="myModalLabel120"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -34,7 +43,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Vous êtes sur le point de commander le plat {{ $dish->name }}.
+                    Vous êtes sur le point de commander cet plat
                     Etes-vous vraiment sûr ?
                 </div>
                 <div class="modal-footer">
@@ -42,14 +51,14 @@
                         @csrf
                         <input type="hidden" name="employeeId" value="{{ Auth::user()->custom->id }}">
                         <input type="hidden" name="dishId" value="{{ $dish->id }}">
-                        <button type="submit" class="btn btn-warning" data-bs-dismiss="modal">Confirmer</button>
+                        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Confirmer</button>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
-<script>
+{{-- <script>
     const form = document.querySelector('#confirm__dish__form')
     const confirm__dish__btns = Array.from(document.querySelectorAll('.confirm__dish__btn'))
 
@@ -57,4 +66,5 @@
         const route = confirm__dish__btn.dataset.route;
         confirm__dish__btn.addEventListener('click', _ => form.setAttribute('action', route))
     });
-</script>
+</script> --}}
+

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('login', [AuthController::class,'index'])->name('login');
     Route::post('login',[AuthController::class, 'login'])->name('employee.login');
     Route::post('logout',[AuthController::class, 'logout'])->name('employee.logout');
-    Route::get('identy_code',[AuthController::class,'identify']);
+    Route::get('identy_code',[AuthController::class,'identify'])->name('identy_code');
     Route::post('check_code', [AuthController::class, 'checkCode'])->name('checkCode');
     // Route::get('/forget_password', [AuthController::class, 'forget_password_index'])->name('forget_password');
     Route::middleware('auth.employee')->group(function () {

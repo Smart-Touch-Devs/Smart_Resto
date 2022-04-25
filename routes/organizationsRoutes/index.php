@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\organizationsControllers\AuthController;
 use App\Http\Controllers\organizationsControllers\backgroundController;
 use App\Http\Controllers\organizationsControllers\ticketsController;
@@ -19,6 +20,7 @@ Route::prefix('org')->group(function () {
         Route::resource('groups', GroupController::class);
         Route::resource('add_employees', EmployeeController::class);
         Route::resource('org_restaurants', RestaurantController::class);
+
     });
     Route::post('role/changeStatus', [Restaurant::class, 'changeStatus'])->name('role.changeStatus');
     route::resource('background',backgroundController::class);

@@ -24,16 +24,28 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials) && Auth::user()->roleId === 5 && Auth::user()->custom->first_login == 0) {
-            $request->session()->regenerate();
+        // if (Auth::attempt($credentials) && Auth::user()->roleId === 5 && Auth::user()->custom->first_login == 0) {
+        //     $request->session()->regenerate();
 
-            return redirect()->intended('/');
-        } else
+        //     return redirect()->intended('/');
+        // } else
 
+        //     return redirect()->back()->withErrors([
+        //         'errors' => 'Vos identifiants sont incorrects',
+        //     ]);
+        if (!Auth::attempt($credentials) ) {
             return redirect()->back()->withErrors([
                 'errors' => 'Vos identifiants sont incorrects',
             ]);
+        }elseif(!Auth::user()->custom->first_login == 0){
+            return redirect()->intended('identy_code')->with('errors','Veuillez entrer dabord votre code identifiant');
+        }elseif(Auth::attempt($credentials) && Auth::user()->roleId === 5 && Auth::user()->custom->first_login == 0){
+                $request->session()->regenerate();
+
+        return redirect()->intended('/');
+        }
     }
+
     public function logout(Request $request)
     {
         Auth::logout();
@@ -63,12 +75,12 @@ class AuthController extends Controller
         ]);
 
         $requestValues = array_values($request->all());
-
         $input = (int) implode('', array_splice($requestValues, 1));
         $employee = Employee::where('identityCode', $input)->first();
         if (!$employee) {
-            return redirect()->back()->with('error', 'Code identifiant invalide!');
+            return redirect()->back()->with('errors', 'Code identifiant invalide!');
         }
+
 
         $input = (int) str_shuffle($input  . "5");
         $employee->update([

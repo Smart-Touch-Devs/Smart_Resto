@@ -4,24 +4,17 @@
 <x-parts.container type="container-fluid">
     <x-parts.main>
         <div class="container mt-3 mx-auto">
-            @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Félicitation!</strong> {{ $message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            @if($message = Session::get('success'))
+            <div style="width: 98%;" class="mx-auto">
+                <div class="alert alert-danger mt-1 alert-dismissible" role="alert">
+                    <div class="alert-body d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info me-50"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        <span>{{$message}}</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             </div>
-            {{Session::forget('success')}}
             @endif
-            @if ($message = Session::get('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>{{ $message }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {{Session::forget('error')}}
-              @endif
             <h2 class="dishes_title mb-2">Faire un dépot</h2>
             <div class="row mt-2">
                 <div class="col-12 col-xl-6">
@@ -31,7 +24,7 @@
                             <i data-feather="alert-circle"></i>
                             <div class="text-center">
                                 <span>Veuillez composer le code suivant sur votre téléphone avant de procéder!</span><br>
-                                <code class="h3">*866*4*6*montant#</code>
+                                <code class="h3">*144*4*6*montant#</code>
                             </div>
                         </div>
                         <div class="row justify-content-center mt-2">

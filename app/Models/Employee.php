@@ -31,6 +31,9 @@ class Employee extends Model
         return $this->hasOne(Account::class,'employeeId');
     }
     public function tickets() {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class,'employeeId');
+    }
+    public function commands() {
+        return $this->hasMany(Command::class,'employeeId');
     }
 }
