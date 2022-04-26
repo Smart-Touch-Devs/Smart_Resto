@@ -40,8 +40,8 @@
 
                     <div class="">
                         <form action="{{ route('checkCode') }}" method="post">
-                            @csrf
                             <div class="container">
+                                @csrf
                                 <div class="mb-5 row">
                                     <div class="col-2 col-xs-3">
                                         <input type="number" name="firstn" class="form-control mt-4" id='ist' maxlength="1"
