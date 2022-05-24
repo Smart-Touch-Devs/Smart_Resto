@@ -12,13 +12,12 @@
                         <div
                             class="w-100 bg-white rounded-top d-flex justify-content-between align-items-center account_user_container">
                             <div class="account_user rounded-circle">
-                                {{-- @if (Auth::user()->profile != null) --}}
-                                <img src="{{ asset('storage/app/public/user_profile/' . Auth::user()->profile) }}"
+                                @if (Auth::user()->profile != null)
+                                <img src="{{ asset('storage/user_profile/' . Auth::user()->profile) }}"
                                     alt="{{ Auth::user()->firstname }}">
-
-                                {{-- @else
+                                @else
                               <img src="{{ asset('assets/employee/employee_avatar.png') }}" alt="user">
-                            @endif --}}
+                            @endif
                             </div>
                             <div>
                                 <h1 class="family_popone">{{ Auth::user()->lastname . ' ' . Auth::user()->firstname }}

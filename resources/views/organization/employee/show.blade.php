@@ -101,14 +101,5 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
 </div>
 @endsection

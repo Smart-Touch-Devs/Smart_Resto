@@ -155,7 +155,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary me-1">Modifier la structure</button>
+                                <button type="submit" class="btn btn-primary me-1">Modifier</button>
                             </div>
                     </form>
                 </div>

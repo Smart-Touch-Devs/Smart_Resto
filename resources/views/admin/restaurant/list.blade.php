@@ -374,7 +374,7 @@
                                         <textarea name="description" class="form-control" id="description" rows="3"
                                             placeholder="Textarea"></textarea>
                                     </div>
-                                   
+
 
                                     <button type="submit" class="btn btn-primary data-submit me-1">Ajouter</button>
                                     <button type="reset" class="btn btn-outline-secondary"

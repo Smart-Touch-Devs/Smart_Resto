@@ -29,7 +29,7 @@ class PersonnelsController extends Controller
         $groups = $organization->groups;
         $booleanArray = array_map(function ($employee) {
             return $employee->isChief;
-        }, 
+        },
         Collection::unwrap($employees));
         $employees = Employee::paginate(10)->fragment('employees');
         $chiefExist = in_array(1, $booleanArray);
@@ -39,15 +39,6 @@ class PersonnelsController extends Controller
             'chiefExist' => $chiefExist,
             'groups' => $groups
         ]);
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -90,6 +81,7 @@ class PersonnelsController extends Controller
         ]);
         return redirect()->back()->with('success', 'Employé ajouté avec succes!');
     }
+
     public function changeStatus(Request $request)
     {
         $request->validate([

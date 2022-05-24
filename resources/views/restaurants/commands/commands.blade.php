@@ -185,7 +185,7 @@
                                                     {{ $command->employee->user->phone }}
                                                 </td>
                                                 <td class="d-flex">
-                                                    <form action="" method="POST">
+                                                    <a href="{{ route('restaurant.deleteValidateCommande',$command->id) }}">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
@@ -202,7 +202,7 @@
                                                             </svg>
                                                             <span class="text-danger">Supprimer</span>
                                                         </button>
-                                                    </form>
+                                                    </a>
                                                 </td>
                                                 @empty
                                                 <div class="alert alert-warning text-center" role="alert">

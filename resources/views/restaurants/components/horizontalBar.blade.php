@@ -26,7 +26,7 @@
                                     </g>
                                 </g>
                             </svg></span>
-                        <h2 class="brand-text mb-0">Vuexy</h2>
+                        <h2 class="brand-text mb-0">{{ Auth::user()->firstname }}</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i></a></li>
             </ul>
@@ -38,9 +38,7 @@
             <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="index.html" data-bs-toggle="dropdown"><i data-feather="home"></i><span data-i18n="Dashboards">Dashboards</span></a>
                     <ul class="dropdown-menu" data-bs-popper="none">
-                        <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="dashboard-analytics.html" data-bs-toggle="" data-i18n="Analytics"><i data-feather="activity"></i><span data-i18n="Analytics">Analytics</span></a>
-                        </li>
-                        <li class="active" data-menu=""><a class="dropdown-item d-flex align-items-center" href="dashboard-ecommerce.html" data-bs-toggle="" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">eCommerce</span></a>
+                        <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ route('restaurant.home') }}" data-bs-toggle="" data-i18n="Analytics"><i data-feather="activity"></i><span data-i18n="Analytics">Home</span></a>
                         </li>
                     </ul>
                 </li>
@@ -52,8 +50,6 @@
                 </li>
                 <li class="dropdown nav-item" data-menu="dropdown"><a class=" nav-link d-flex align-items-center" href="{{ asset('restaurant/schedules') }}" ><i data-feather="edit"></i><span data-i18n="User Interface">Configuration Horaires</span></a>
                 </li>
-                {{-- <li class="dropdown nav-item" data-menu="dropdown"><a class=" nav-link d-flex align-items-center" href="#" ><i data-feather="edit"></i><span data-i18n="User Interface">Configuration Générale</span></a>
-                </li> --}}
                 <li class="dropdown nav-item" data-menu="dropdown"><a class=" nav-link d-flex align-items-center" href="{{ asset('restaurant/commands') }}" ><i data-feather="command"></i><span data-i18n="User Interface">Commandes</span></a>
                 </li>
             </ul>

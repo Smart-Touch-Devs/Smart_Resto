@@ -108,25 +108,24 @@ class EmployeeController extends Controller
             'employeeId' => $addedEmployee->id,
             'ticketNumber' => 0
         ]);
-        // Org_resto::create([
-        //     'organizationId' => $organization->id,
-        //     'restaurantId'
-        // ]);
+
 
         return redirect()->back()->with('success', 'Employé ajouté avec succes!');
     }
 
 
-    public function changeStatus(Request $request)
+    public function changeStatus($id)
     {
-        $request->validate([
-            'uuid' => 'required|exists:users,uuid'
+        // $request->validate([
+        //     'uuid' => 'required|exists:users,uuid'
+        // ]);
+
+        $employee = User::where('id', $id)->first();
+        dd($employee);
+        $employee->update([
+            'status' => 0
         ]);
 
-        $employee = User::where('uuid', $request->uuid)->first();
-        $employee->update([
-            'status' => !$employee->status
-        ]);
     }
 
     /**

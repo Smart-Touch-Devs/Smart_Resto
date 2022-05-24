@@ -17,7 +17,8 @@ class CreateCommandsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('employeeId');
             $table->unsignedBigInteger('dishId');
-            $table->unsignedBigInteger('restaurantId');
+            $table->integer('restaurantId');
+            $table->integer('userId');
             $table->unsignedBigInteger('organizationId');
             $table->boolean('done')->default(false);
             $table->timestamps();
@@ -30,11 +31,6 @@ class CreateCommandsTable extends Migration
             $table->foreign('dishId')
             ->references('id')
             ->on('dishes')
-            ->onDelete('cascade');
-
-            $table->foreign('restaurantId')
-            ->references('id')
-            ->on('restaurants')
             ->onDelete('cascade');
 
             $table->foreign('organizationId')

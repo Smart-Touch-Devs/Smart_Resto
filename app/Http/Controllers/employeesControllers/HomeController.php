@@ -56,13 +56,11 @@ class HomeController extends Controller
                     $dayId = 2;
                     $userConnected = Auth()->user()->id;
                     $getOrganizationId = Employee::select('organizationId')->where('userId', '=', $userConnected)->first();
-                    $getRestoId = Org_resto::select('restaurant_id')->where('organization_id', '=', $getOrganizationId->organizationId)->get();
+                    $getRestoId = Org_resto::where('organization_id', '=', $getOrganizationId->organizationId)->get();
                     foreach ($getRestoId as $item) {
-
                         $getDishTodayMenu = Menu::where('restaurantId', '=', $item->restaurant_id)->where('dayId', '=', $dayId)->first();
                         if ($getDishTodayMenu != null) {
                             $getExplodeVar = explode(",", $getDishTodayMenu->dishId);
-
                             $getTrueVariable = [];
                             for ($i = 0; $i < count($getExplodeVar); $i++) {
                                 $getTrueString = preg_replace('/[^A-Za-z0-9\-]/', ' ', $getExplodeVar[$i]);

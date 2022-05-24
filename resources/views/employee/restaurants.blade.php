@@ -9,7 +9,7 @@
 
                 {{-- Restaurants --}}
 
-                @forelse (Auth::user()->custom->organization->restaurants as $restaurant)
+                @forelse ($restaurants as $restaurant)
                 <div class="col-6 col-xl-3 my-1">
                     <div class="card">
                         <div class="restaurant___img">

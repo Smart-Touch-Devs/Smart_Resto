@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\restaurantsControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Command;
+use App\Models\Org_resto;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -51,15 +54,16 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'updated_at' => auth()->user()->updated_at
         ]);
-        return back()->with('successResetPassword', 'Mot de passe  changé avec succes Vos povez desormais vous connectez avec votre nouveau mot de passe');
+        return back()->with('successResetPassword', 'Mot de passe  changé avec succes Vos pouvez desormais vous connectez avec votre nouveau mot de passe');
     }
 
-    public function update(Request $request)
-    {
-        //
-    }
     public function home() {
-        return view('restaurants.home');
+        $getSlogan = Restaurant::where('userId',Auth::user()->id)->first();
+        $restaurantId = Restaurant::where('userId',Auth::user()->id)->first();
+        $getNumberCommand = Command::where('restaurantId',Auth::user()->id)->where('done',0)->get();
+        $getOrg = Org_resto::where('restaurant_id',$restaurantId->id)->get();;
+        $getNumberValidateCommand = Command::where('restaurantId',Auth::user()->id)->where('done',1)->get();
+        return view('restaurants.home',compact('getSlogan','getNumberCommand','getNumberValidateCommand','getOrg'));
     }
 
     public function logout(Request $request)

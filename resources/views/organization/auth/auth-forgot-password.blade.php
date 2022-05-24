@@ -48,7 +48,7 @@
                                 <h4 class="card-title text-center mb-1">Mot de passe oublié ? 🔒</h4>
                                 <p class="card-text text-center mb-2">Entrez votre email pour réinitialiser votre mot de passe</p>
 
-                                <form class="auth-forgot-password-form mt-2" action="sendLink" method="POST">
+                                <form class="auth-forgot-password-form mt-2" action="{{ route('forget.password') }}" method="POST">
                                     @csrf
                                     <div class="mb-1">
                                         <label for="forgot-password-email" class="form-label">Email</label>
@@ -63,10 +63,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
      <script src="{{ asset('dashboard/app-assets/js/scripts/pages/auth-forgot-password.js') }}"></script>
 @endsection

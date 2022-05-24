@@ -4,8 +4,7 @@ namespace App\Http\Controllers\API\employeesControllers;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\EmployeeResource;
-use App\Http\Resources\TicketResource;
+use App\Http\Resources\RestaurantResource;
 use App\Models\Account;
 use App\Models\Employee;
 use App\Models\Restaurant;
@@ -25,8 +24,9 @@ class AccountController extends Controller
 
     public function restaurants()
     {
-        $restaurants = Restaurant::all();
-        return $restaurants;
+        $restaurants = Auth::user()->custom->organization->restaurants;
+       
+        return RestaurantResource::collection($restaurants);
     }
 
 
@@ -78,9 +78,11 @@ class AccountController extends Controller
     public function get_ticket()
     {
         $count = Ticket::where('employeeId', auth()->user()->custom->id)->pluck('ticketNumber')->toArray();
+        $getUserInformation = Employee::where('userId', Auth::user()->id)->first();
         $getNumberTickets = array_sum($count);
         return [
-            'le nombre de tickets est de ' =>  $getNumberTickets
+            'le nombre de tickets est de ' =>  $getNumberTickets,
+            'employeeId' => $getUserInformation->id
         ];
     }
 
@@ -95,6 +97,7 @@ class AccountController extends Controller
     public function get_userInformation()
     {
         $getUserInformation = Employee::where('userId', Auth::user()->id)->first();
+        $getOthersInformation = Auth::user();
 
         if (!Auth::user()) {
             return response()->json([
@@ -102,11 +105,16 @@ class AccountController extends Controller
             ], 400);
         }else{
             return [
-                'user' => $getUserInformation->user->firstname .' ' . $getUserInformation->user->lastname,
+                'firstname' => $getUserInformation->user->firstname,
+                'lastname' =>  $getUserInformation->user->lastname,
                 'organizationName' => $getUserInformation->organization->user->firstname,
                 'groupName' => $getUserInformation->group->name,
-                'code identifiant' => $getUserInformation->identityCode,
-                'firstlogin' => $getUserInformation->first_login
+                'uuid' =>  $getOthersInformation->uuid,
+                'email' => $getOthersInformation->email,
+                'phone' => $getOthersInformation->phone,
+                'profile' =>$getOthersInformation->profile,
+                'employeeId' => $getUserInformation->id
+
             ];
         }
     }

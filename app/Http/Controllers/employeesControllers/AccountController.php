@@ -4,6 +4,7 @@ namespace App\Http\Controllers\employeesControllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+
 use App\Models\Restaurant;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
@@ -66,7 +67,7 @@ class AccountController extends Controller
         return redirect()->back()->with("success", "Votre dépôt a été un succès!");
     }
 
-   
+
 
     public function tickets_index()
     {
@@ -118,7 +119,7 @@ class AccountController extends Controller
 
     public function restaurants()
     {
-        $restaurants = Restaurant::paginate(4)->fragment('restaurants');
+        $restaurants = Auth::user()->custom->organization->restaurants;
         return view('employee.restaurants', compact('restaurants'));
     }
 
@@ -153,7 +154,7 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        $restaurant = Restaurant::find($id);
+        $restaurant = Restaurant::findOrfail($id);
         $recupMenu = $restaurant->schedules;
         $obj = collect(json_decode($recupMenu, true));
         return view('employee.show', compact('restaurant', 'obj'));

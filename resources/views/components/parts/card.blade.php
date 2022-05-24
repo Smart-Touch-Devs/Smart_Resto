@@ -26,6 +26,7 @@
             <input type="hidden" name="employeeId" value="{{ Auth::user()->custom->id }}">
             <input type="hidden" name="dishId" value="{{ $dish->id }}">
             <input type="hidden" name="restaurantId" value="{{ $dish->restaurant->user->id }}">
+            <input type="hidden" name="userId" value="{{ Auth::user()->id }}">
             <button type="submit">Commander</button>
         </form>
 

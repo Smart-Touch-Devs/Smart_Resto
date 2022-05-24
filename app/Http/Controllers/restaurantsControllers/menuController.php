@@ -112,8 +112,10 @@ class menuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete_menu($id)
     {
-        //
+        $menu = Menu::find($id);
+        $menu->delete();
+        return back()->with('success','Retrait du menu effectué avec succès');
     }
 }

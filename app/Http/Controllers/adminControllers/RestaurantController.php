@@ -57,7 +57,7 @@ class RestaurantController extends Controller
             'roleId' => 4,
             'uuid' => Str::uuid(),
             'status' => 1,
-    
+
         ];
 
         foreach ($additionalInput as $key => $value) {
@@ -101,6 +101,7 @@ class RestaurantController extends Controller
         ]);
 
         $restaurant = User::where('uuid', $request->uuid)->first();
+        
         $restaurant->update([
             'status' => !$restaurant->status
         ]);

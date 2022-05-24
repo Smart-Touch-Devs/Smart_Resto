@@ -2,7 +2,7 @@
 @section('content')
     <!-- BEGIN: Header-->
     @include('restaurants.components.header')
-@include('restaurants.components.horizontalBar')
+    @include('restaurants.components.horizontalBar')
 
     <div class="app-content content ">
         <div class="content-overlay"></div>
@@ -18,13 +18,13 @@
                         <div class="col-xl-4 col-md-6 col-12">
                             <div class="card card-congratulation-medal">
                                 <div class="card-body">
-                                    <h5>Congratulations 🎉 John!</h5>
-                                    <p class="card-text font-small-3">You have won gold medal</p>
-                                    <h3 class="mb-75 mt-2 pt-50">
-                                        <a href="#">$48.9k</a>
-                                    </h3>
-                                    <button type="button" class="btn btn-primary">View Sales</button>
-                                    <img src="{{asset('dashboard/app-assets/images/illustration/badge.svg')}}" class="congratulation-medal" alt="Medal Pic" />
+                                    <h5>Bienvenue Restaurant <span class="text-uppercase">{{ Auth::user()->firstname }}</span></h5>
+                                    <p class="card-text font-small-3">{{$getSlogan->slogan}}</p>
+                                    <a href="{{ route('org.commands') }}">
+                                        <button type="button" class="btn btn-primary">Commandes</button>
+                                    </a>
+                                    <img src="{{ asset('dashboard/app-assets/images/illustration/badge.svg') }}"
+                                        class="congratulation-medal" alt="Medal Pic" />
                                 </div>
                             </div>
                         </div>
@@ -34,10 +34,7 @@
                         <div class="col-xl-8 col-md-6 col-12">
                             <div class="card card-statistics">
                                 <div class="card-header">
-                                    <h4 class="card-title">Statistics</h4>
-                                    <div class="d-flex align-items-center">
-                                        <p class="card-text font-small-2 me-25 mb-0">Updated 1 month ago</p>
-                                    </div>
+                                    <h4 class="card-title">Mes Statistiques </h4>
                                 </div>
                                 <div class="card-body statistics-body">
                                     <div class="row">
@@ -49,8 +46,29 @@
                                                     </div>
                                                 </div>
                                                 <div class="my-auto">
-                                                    <h4 class="fw-bolder mb-0">230k</h4>
-                                                    <p class="card-text font-small-3 mb-0">Sales</p>
+                                                    @if (count($getNumberCommand) === 0)
+                                                    <h4 class="fw-bolder mb-0">Aucune</h4>
+                                                    @else
+                                                         <h4 class="fw-bolder mb-0">{{ count($getNumberCommand) }}</h4>
+                                                    @endif
+                                                    <p class="card-text font-small-3 mb-0">Commandes en cours</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-primary me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="trending-up" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    @if (count($getNumberValidateCommand) === 0)
+                                                         <h4 class="fw-bolder mb-0">Aucune</h4>
+                                                    @else
+                                                         <h4 class="fw-bolder mb-0">{{ count($getNumberValidateCommand) }}</h4>
+                                                    @endif
+                                                    <p class="card-text font-small-3 mb-0">Commandes validées</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -62,8 +80,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="my-auto">
-                                                    <h4 class="fw-bolder mb-0">8.549k</h4>
-                                                    <p class="card-text font-small-3 mb-0">Customers</p>
+                                                    @if (count($getOrg) === 0)
+                                                       <h4 class="fw-bolder mb-0">Aucune</h4>
+                                                    @else
+                                                       <h4 class="fw-bolder mb-0"> {{ count($getOrg) }}</h4>
+                                                    @endif
+                                                    <p class="card-text font-small-3 mb-0">Structures Partenaires</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -77,19 +99,6 @@
                                                 <div class="my-auto">
                                                     <h4 class="fw-bolder mb-0">1.423k</h4>
                                                     <p class="card-text font-small-3 mb-0">Products</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-3 col-sm-6 col-12">
-                                            <div class="d-flex flex-row">
-                                                <div class="avatar bg-light-success me-2">
-                                                    <div class="avatar-content">
-                                                        <i data-feather="dollar-sign" class="avatar-icon"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h4 class="fw-bolder mb-0">$9745</h4>
-                                                    <p class="card-text font-small-3 mb-0">Revenue</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -137,7 +146,8 @@
                                                     <div class="font-small-2">This Month</div>
                                                     <h5 class="mb-1">$4055.56</h5>
                                                     <p class="card-text text-muted font-small-2">
-                                                        <span class="fw-bolder">68.2%</span><span> more earnings than last month.</span>
+                                                        <span class="fw-bolder">68.2%</span><span> more earnings than
+                                                            last month.</span>
                                                     </p>
                                                 </div>
                                                 <div class="col-6">
@@ -160,11 +170,13 @@
                                             <h4 class="card-title mb-50 mb-sm-0">Revenue Report</h4>
                                             <div class="d-flex align-items-center">
                                                 <div class="d-flex align-items-center me-2">
-                                                    <span class="bullet bullet-primary font-small-3 me-50 cursor-pointer"></span>
+                                                    <span
+                                                        class="bullet bullet-primary font-small-3 me-50 cursor-pointer"></span>
                                                     <span>Earning</span>
                                                 </div>
                                                 <div class="d-flex align-items-center ms-75">
-                                                    <span class="bullet bullet-warning font-small-3 me-50 cursor-pointer"></span>
+                                                    <span
+                                                        class="bullet bullet-warning font-small-3 me-50 cursor-pointer"></span>
                                                     <span>Expense</span>
                                                 </div>
                                             </div>
@@ -173,7 +185,9 @@
                                     </div>
                                     <div class="col-md-4 col-12 budget-wrapper">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle budget-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button type="button"
+                                                class="btn btn-outline-primary btn-sm dropdown-toggle budget-dropdown"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 2020
                                             </button>
                                             <div class="dropdown-menu">
@@ -218,7 +232,8 @@
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar rounded">
                                                                 <div class="avatar-content">
-                                                                    <img src="{{asset('dashboard/app-assets/images/icons/toolbox.svg')}}" alt="Toolbar svg" />
+                                                                    <img src="{{ asset('dashboard/app-assets/images/icons/toolbox.svg') }}"
+                                                                        alt="Toolbar svg" />
                                                                 </div>
                                                             </div>
                                                             <div>
@@ -247,7 +262,8 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <span class="fw-bolder me-1">68%</span>
-                                                            <i data-feather="trending-down" class="text-danger font-medium-1"></i>
+                                                            <i data-feather="trending-down"
+                                                                class="text-danger font-medium-1"></i>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -256,12 +272,14 @@
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar rounded">
                                                                 <div class="avatar-content">
-                                                                    <img src="{{asset('dashboard/app-assets/images/icons/parachute.svg')}}" alt="Parachute svg" />
+                                                                    <img src="{{ asset('dashboard/app-assets/images/icons/parachute.svg') }}"
+                                                                        alt="Parachute svg" />
                                                                 </div>
                                                             </div>
                                                             <div>
                                                                 <div class="fw-bolder">Motels</div>
-                                                                <div class="font-small-2 text-muted">vecav@hodzi.co.uk</div>
+                                                                <div class="font-small-2 text-muted">vecav@hodzi.co.uk
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -285,7 +303,8 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <span class="fw-bolder me-1">97%</span>
-                                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                                            <i data-feather="trending-up"
+                                                                class="text-success font-medium-1"></i>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -294,7 +313,8 @@
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar rounded">
                                                                 <div class="avatar-content">
-                                                                    <img src="{{asset('dashboard/app-assets/images/icons/brush.svg')}}" alt="Brush svg" />
+                                                                    <img src="{{ asset('dashboard/app-assets/images/icons/brush.svg') }}"
+                                                                        alt="Brush svg" />
                                                                 </div>
                                                             </div>
                                                             <div>
@@ -323,7 +343,8 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <span class="fw-bolder me-1">62%</span>
-                                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                                            <i data-feather="trending-up"
+                                                                class="text-success font-medium-1"></i>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -332,7 +353,8 @@
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar rounded">
                                                                 <div class="avatar-content">
-                                                                    <img src="{{asset('dashboard/app-assets/images/icons/star.svg')}}" alt="Star svg" />
+                                                                    <img src="{{ asset('dashboard/app-assets/images/icons/star.svg') }}"
+                                                                        alt="Star svg" />
                                                                 </div>
                                                             </div>
                                                             <div>
@@ -361,7 +383,8 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <span class="fw-bolder me-1">88%</span>
-                                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                                            <i data-feather="trending-up"
+                                                                class="text-success font-medium-1"></i>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -370,7 +393,8 @@
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar rounded">
                                                                 <div class="avatar-content">
-                                                                    <img src="{{asset('dashboard/app-assets/images/icons/book.svg')}}" alt="Book svg" />
+                                                                    <img src="{{ asset('dashboard/app-assets/images/icons/book.svg') }}"
+                                                                        alt="Book svg" />
                                                                 </div>
                                                             </div>
                                                             <div>
@@ -399,7 +423,8 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <span class="fw-bolder me-1">16%</span>
-                                                            <i data-feather="trending-down" class="text-danger font-medium-1"></i>
+                                                            <i data-feather="trending-down"
+                                                                class="text-danger font-medium-1"></i>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -408,7 +433,8 @@
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar rounded">
                                                                 <div class="avatar-content">
-                                                                    <img src="{{asset('dashboard/app-assets/images/icons/rocket.svg')}}" alt="Rocket svg" />
+                                                                    <img src="{{ asset('dashboard/app-assets/images/icons/rocket.svg') }}"
+                                                                        alt="Rocket svg" />
                                                                 </div>
                                                             </div>
                                                             <div>
@@ -437,7 +463,8 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <span class="fw-bolder me-1">78%</span>
-                                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                                            <i data-feather="trending-up"
+                                                                class="text-success font-medium-1"></i>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -446,7 +473,8 @@
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar rounded">
                                                                 <div class="avatar-content">
-                                                                    <img src="{{asset('dashboard/app-assets/images/icons/speaker.svg')}}" alt="Speaker svg" />
+                                                                    <img src="{{ asset('dashboard/app-assets/images/icons/speaker.svg') }}"
+                                                                        alt="Speaker svg" />
                                                                 </div>
                                                             </div>
                                                             <div>
@@ -475,7 +503,8 @@
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <span class="fw-bolder me-1">42%</span>
-                                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                                            <i data-feather="trending-up"
+                                                                class="text-success font-medium-1"></i>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -491,7 +520,8 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="card card-developer-meetup">
                                 <div class="meetup-img-wrapper rounded-top text-center">
-                                    <img src="{{asset('dashboard/app-assets/images/illustration/email.svg')}}" alt="Meeting Pic" height="170" />
+                                    <img src="{{ asset('dashboard/app-assets/images/illustration/email.svg') }}"
+                                        alt="Meeting Pic" height="170" />
                                 </div>
                                 <div class="card-body">
                                     <div class="meetup-header d-flex align-items-center">
@@ -527,20 +557,30 @@
                                         </div>
                                     </div>
                                     <div class="avatar-group">
-                                        <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom" title="Billy Hopkins" class="avatar pull-up">
-                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-9.jpg')}}" alt="Avatar" width="33" height="33" />
+                                        <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom"
+                                            title="Billy Hopkins" class="avatar pull-up">
+                                            <img src="{{ asset('dashboard/app-assets/images/portrait/small/avatar-s-9.jpg') }}"
+                                                alt="Avatar" width="33" height="33" />
                                         </div>
-                                        <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom" title="Amy Carson" class="avatar pull-up">
-                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-6.jpg')}}" alt="Avatar" width="33" height="33" />
+                                        <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom"
+                                            title="Amy Carson" class="avatar pull-up">
+                                            <img src="{{ asset('dashboard/app-assets/images/portrait/small/avatar-s-6.jpg') }}"
+                                                alt="Avatar" width="33" height="33" />
                                         </div>
-                                        <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom" title="Brandon Miles" class="avatar pull-up">
-                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-8.jpg')}}" alt="Avatar" width="33" height="33" />
+                                        <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom"
+                                            title="Brandon Miles" class="avatar pull-up">
+                                            <img src="{{ asset('dashboard/app-assets/images/portrait/small/avatar-s-8.jpg') }}"
+                                                alt="Avatar" width="33" height="33" />
                                         </div>
-                                        <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom" title="Daisy Weber" class="avatar pull-up">
-                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="Avatar" width="33" height="33" />
+                                        <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom"
+                                            title="Daisy Weber" class="avatar pull-up">
+                                            <img src="{{ asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg') }}"
+                                                alt="Avatar" width="33" height="33" />
                                         </div>
-                                        <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom" title="Jenny Looper" class="avatar pull-up">
-                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="Avatar" width="33" height="33" />
+                                        <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="bottom"
+                                            title="Jenny Looper" class="avatar pull-up">
+                                            <img src="{{ asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg') }}"
+                                                alt="Avatar" width="33" height="33" />
                                         </div>
                                         <h6 class="align-self-center cursor-pointer ms-50 mb-0">+42</h6>
                                     </div>
@@ -558,7 +598,8 @@
                                         <p class="card-text font-small-2">Counter August 2020</p>
                                     </div>
                                     <div class="dropdown chart-dropdown">
-                                        <i data-feather="more-vertical" class="font-medium-3 cursor-pointer" data-bs-toggle="dropdown"></i>
+                                        <i data-feather="more-vertical" class="font-medium-3 cursor-pointer"
+                                            data-bs-toggle="dropdown"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" href="#">Last 28 Days</a>
                                             <a class="dropdown-item" href="#">Last Month</a>
@@ -569,7 +610,8 @@
                                 <div class="card-body">
                                     <div class="browser-states">
                                         <div class="d-flex">
-                                            <img src="{{asset('dashboard/app-assets/images/icons/google-chrome.png')}}" class="rounded me-1" height="30" alt="Google Chrome" />
+                                            <img src="{{ asset('dashboard/app-assets/images/icons/google-chrome.png') }}"
+                                                class="rounded me-1" height="30" alt="Google Chrome" />
                                             <h6 class="align-self-center mb-0">Google Chrome</h6>
                                         </div>
                                         <div class="d-flex align-items-center">
@@ -579,7 +621,8 @@
                                     </div>
                                     <div class="browser-states">
                                         <div class="d-flex">
-                                            <img src="{{asset('dashboard/app-assets/images/icons/mozila-firefox.png')}}" class="rounded me-1" height="30" alt="Mozila Firefox" />
+                                            <img src="{{ asset('dashboard/app-assets/images/icons/mozila-firefox.png') }}"
+                                                class="rounded me-1" height="30" alt="Mozila Firefox" />
                                             <h6 class="align-self-center mb-0">Mozila Firefox</h6>
                                         </div>
                                         <div class="d-flex align-items-center">
@@ -589,7 +632,8 @@
                                     </div>
                                     <div class="browser-states">
                                         <div class="d-flex">
-                                            <img src="{{asset('dashboard/app-assets/images/icons/apple-safari.png')}}" class="rounded me-1" height="30" alt="Apple Safari" />
+                                            <img src="{{ asset('dashboard/app-assets/images/icons/apple-safari.png') }}"
+                                                class="rounded me-1" height="30" alt="Apple Safari" />
                                             <h6 class="align-self-center mb-0">Apple Safari</h6>
                                         </div>
                                         <div class="d-flex align-items-center">
@@ -599,7 +643,8 @@
                                     </div>
                                     <div class="browser-states">
                                         <div class="d-flex">
-                                            <img src="{{asset('dashboard/app-assets/images/icons/internet-explorer.png')}}" class="rounded me-1" height="30" alt="Internet Explorer" />
+                                            <img src="{{ asset('dashboard/app-assets/images/icons/internet-explorer.png') }}"
+                                                class="rounded me-1" height="30" alt="Internet Explorer" />
                                             <h6 class="align-self-center mb-0">Internet Explorer</h6>
                                         </div>
                                         <div class="d-flex align-items-center">
@@ -609,7 +654,8 @@
                                     </div>
                                     <div class="browser-states">
                                         <div class="d-flex">
-                                            <img src="{{asset('dashboard/app-assets/images/icons/opera.png')}}" class="rounded me-1" height="30" alt="Opera Mini" />
+                                            <img src="{{ asset('dashboard/app-assets/images/icons/opera.png') }}"
+                                                class="rounded me-1" height="30" alt="Opera Mini" />
                                             <h6 class="align-self-center mb-0">Opera Mini</h6>
                                         </div>
                                         <div class="d-flex align-items-center">
@@ -652,7 +698,8 @@
                                 <div class="card-header">
                                     <h4 class="card-title">Transactions</h4>
                                     <div class="dropdown chart-dropdown">
-                                        <i data-feather="more-vertical" class="font-medium-3 cursor-pointer" data-bs-toggle="dropdown"></i>
+                                        <i data-feather="more-vertical" class="font-medium-3 cursor-pointer"
+                                            data-bs-toggle="dropdown"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" href="#">Last 28 Days</a>
                                             <a class="dropdown-item" href="#">Last Month</a>

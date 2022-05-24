@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\employeesControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GetCommandResource;
+use App\Http\Resources\GetValidateCommandResource;
 use App\Models\Command;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
@@ -11,6 +13,19 @@ use Illuminate\Support\Facades\Auth;
 
 class CommandController extends Controller
 {
+    public function getCommands()
+    {
+        $getUserConnected = Auth::user()->id;
+        $getCommands = Command::where('userId',$getUserConnected)->where('done', false)->get();
+        return GetCommandResource::collection( $getCommands);
+    }
+    public function getValidateCommands()
+    {
+        $getUserConnected = Auth::user()->id;
+        $getCommandValidate = Command::where('userId',$getUserConnected)->where('done', true)->get();
+         return GetValidateCommandResource::collection( $getCommandValidate);
+
+    }
     public function store(Request $request)
     {
 
@@ -18,6 +33,7 @@ class CommandController extends Controller
             'employeeId' => 'required',
             'dishId' => 'required',
             'restaurantId' => 'required',
+            'userId' => 'required',
             'done' => 'required'
         ]);
         if ($validator->failed()) {
@@ -39,6 +55,7 @@ class CommandController extends Controller
                 'employeeId' => $request->employeeId,
                 'dishId' => $request->dishId,
                 'restaurantId' => $request->restaurantId,
+                'userId' => $request->userId,
                 'done' => false
             ]);
 

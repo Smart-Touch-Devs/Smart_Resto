@@ -90,7 +90,7 @@
                                     </button>
                                 @endif
                                 @if (!json_decode(Auth::user()->custom->schedules, true) ||
-                                    count(json_decode(Auth::user()->custom->schedules, true)) < 7) 
+                                    count(json_decode(Auth::user()->custom->schedules, true)) < 7)
                                     <button type="button"class="dt-button create-new btn btn-primary" data-bs-toggle="modal"data-bs-target="#addModal">
                                         Ajouter un horaire
                                     </button>
@@ -131,7 +131,7 @@
                             <div style="width: 90%;" class="mt-2 mx-auto">
                                 <div class="alert alert-dark">
                                     <div class="alert-body">
-                                        <p>Vous n'avez aucune horraire d'ouverture et de fermeture disponible !</p>
+                                        <p>Vous n'avez aucune horaire d'ouverture et de fermeture disponible !</p>
                                     </div>
                                 </div>
                             </div>
@@ -203,11 +203,11 @@
                             <div class="mb-1">
                                 <select name="day" id="day" class="form-control">
                                     @foreach ($jours as $jour)
-                                    @if (!json_decode(Auth::user()->custom->schedules, true) ||
+                                    {{-- @if (!json_decode(Auth::user()->custom->schedules, true) ||
                                     !in_array($jour->name, array_keys(json_decode(Auth::user()->custom->schedules,
-                                    true))))
+                                    true)))) --}}
                                     <option value="{{ $jour->name }}">{{ $jour->name }}</option>
-                                    @endif
+                                    {{-- @endif --}}
                                     @endforeach
                                 </select>
                             </div>

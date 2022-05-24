@@ -39,7 +39,7 @@
                                 </g>
                             </g>
                         </svg></span>
-                    <h2 class="brand-text mb-0">Vuexy</h2>
+                    <h2 class="brand-text mb-0">{{ Auth::user()->firstname }}</h2>
                 </a>
             </li>
         </ul>
@@ -67,7 +67,7 @@
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a class="dropdown-item"
-                        href="page-profile.html"><i class="me-50" data-feather="user"></i> Profile</a>
+                        href="{{ route('restaurant.profile') }}"><i class="me-50" data-feather="user"></i> Profile</a>
                         <a class="dropdown-item" href="{{route('resetPassword')}}"><i
                             class="me-50" data-feather="help-circle"></i> Mot de passe</a>
                     <form action="{{ route('restaurant.logout') }}" method="POST">

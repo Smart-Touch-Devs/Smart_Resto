@@ -313,7 +313,7 @@
                                                             <div class="input-group input-group-merge">
                                                                 <span class="input-group-text"><i data-feather="image"></i></span>
                                                                 <input type="file" id="profile" class="form-control" name="profile"
-                                                                    placeholder="Choississez une photo de profile" @if(old('profile'))
+                                                                    placeholder="Choisissez une photo de profile" @if(old('profile'))
                                                                     value="{{ old('profile') }}" @endif />
                                                             </div>
                                                             @error('profile')
@@ -356,10 +356,7 @@
                                                         <div class="mb-1">
                                                             <label class="form-label" for="description">Description de la structure</label>
                                                             <textarea name="description" class="form-control" id="description" rows="3"placeholder="Description de la structure"></textarea>
-                                                        </div>
-
-
-
+                                                        </div> 
                                                         <button type="submit" class="btn btn-primary data-submit me-1">Ajouter</button>
                                                         <button type="reset" class="btn btn-outline-secondary"
                                                             data-bs-dismiss="modal">Fermer</button>

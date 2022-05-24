@@ -13,6 +13,7 @@ class Command extends Model
         'employeeId',
         'dishId',
         'restaurantId',
+        'userId',
         'done'
     ];
 
@@ -27,6 +28,6 @@ class Command extends Model
         return $this->hasMany(Ticket::class, 'ticketId');
     }
     public function restaurant() {
-        return $this->belongsTo(restaurant::class);
+        return $this->belongsTo(restaurant::class,'restaurantId');
     }
 }

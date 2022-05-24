@@ -17,8 +17,9 @@ class CommandController extends Controller
      */
     public function index()
     {
-        $getCommands = Command::where('done', false)->orderBy('created_at','DESC')->paginate(3);
-        $getCommandValidate = Command::where('done', true)->paginate(3);
+        $getUserConnected = Auth::user()->id;
+        $getCommands = Command::where('userId',$getUserConnected)->where('done', false)->orderBy('created_at','DESC')->paginate(3);
+        $getCommandValidate = Command::where('userId',$getUserConnected)->where('done', true)->paginate(3);
         return view('employee.commands', compact('getCommands', 'getCommandValidate'));
     }
 
@@ -52,6 +53,7 @@ class CommandController extends Controller
                 'employeeId' => $request->employeeId,
                 'dishId' => $request->dishId,
                 'restaurantId' => $request->restaurantId,
+                'userId' => $request->userId,
                 'done' => false
             ]);
 
