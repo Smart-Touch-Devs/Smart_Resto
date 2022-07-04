@@ -356,7 +356,7 @@
                                                         <div class="mb-1">
                                                             <label class="form-label" for="description">Description de la structure</label>
                                                             <textarea name="description" class="form-control" id="description" rows="3"placeholder="Description de la structure"></textarea>
-                                                        </div> 
+                                                        </div>
                                                         <button type="submit" class="btn btn-primary data-submit me-1">Ajouter</button>
                                                         <button type="reset" class="btn btn-outline-secondary"
                                                             data-bs-dismiss="modal">Fermer</button>
@@ -373,7 +373,7 @@
         </div>
     </div>
 </div>
-
+@include('admin.components.footer')
 <script src="{{ asset('js/changeStatus.js') }}"></script>
 <script>
     const form = document.querySelector('#delete__dish__form')

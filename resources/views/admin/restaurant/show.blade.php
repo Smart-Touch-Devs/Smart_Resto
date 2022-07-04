@@ -747,5 +747,6 @@
             </div>
         </div>
     </div>
+    @include('admin.components.footer')
     <script src="{{ asset('js/admin.restaurant.js') }}"></script>
     @endsection

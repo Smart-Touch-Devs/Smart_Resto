@@ -10,6 +10,7 @@ Route::prefix('admin')->group(function() {
     Route::middleware('auth.admin')->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
         Route::get('/', [AuthController::class, 'home'])->name('admin.home');
+        Route::get('profile', [AuthController::class, 'profile'])->name('admin.profile');
         Route::resource('org_employees', EmployeeController::class);
         Route::resource('restaurants', RestaurantController::class);
         Route::resource('organization', OrganizationController::class);
@@ -17,7 +18,7 @@ Route::prefix('admin')->group(function() {
         Route::resource('role', RoleController::class);
         Route::resource('adminTickets',adminTicketsController::class);
         //Route
-        Route::post('role/changeStatus', [RoleController::class, 'changeStatus'])->name('role.changeStatus');
+        // Route::get('role/changeStatus/{id}', [RoleController::class, 'changeStatus'])->name('role.changeStatus');
         Route::post('restaurant/changeStatus', [RestaurantController::class, 'changeStatus'])->name('restaurant.changeStatus');
         Route::post('organization/changeStatus', [OrganizationController::class, 'changeStatus'])->name('organization.changeStatus');
         Route::post('employee/changeStatus', [EmployeeController::class, 'changeStatus'])->name('employee.changeStatus');

@@ -57,10 +57,16 @@
                                         <div class="mb-1">
                                             <label class="form-label" for="first-name-icon">Nom du rôle</label>
                                                 <input type="text" id="first-name-icon" class="form-control" name="label" value="{{ $role->label }}" />
+                                                {!! $errors->first('label', '<small class="text-danger "> Ce champ est réquis</small>') !!}
                                          </div>
+                                        </div>
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary me-1">Modifier</button>
+                                        <a href="{{ route('role.index') }}">
+                                            <button  class="btn btn-primary me-1">Retour</button>
+                                        </a>
                                 </div>
+                            </div>
                             </form>
                         </div>
                     </div>

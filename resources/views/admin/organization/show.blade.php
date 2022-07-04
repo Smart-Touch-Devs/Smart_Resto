@@ -141,15 +141,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
 </div>
+@include('admin.components.footer')
 @endsection

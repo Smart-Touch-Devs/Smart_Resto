@@ -38,13 +38,16 @@ class AuthController extends Controller
     public function home()
     {
         $roles = Role::all()->first();
-        $organizations = Organization::all();
+        $organizations = Organization::paginate(5);
         $groupsNumber = count(Group::all());
         $employeesNumber = count(Employee::all());
-        $restaurants = Restaurant::all();
+        $restaurants = Restaurant::paginate(5);
         return view('admin.home',compact('roles', 'organizations', 'groupsNumber', 'employeesNumber', 'restaurants'));
     }
 
+    public function profile(){
+        return view('admin.profile');
+    }
     public function logout(Request $request)
     {
         Auth::logout();

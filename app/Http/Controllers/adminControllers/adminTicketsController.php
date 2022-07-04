@@ -15,7 +15,7 @@ class adminTicketsController extends Controller
      */
     public function index()
     {
-        $dataTickets = Organization::all();
+        $dataTickets = Organization::paginate(5);
         return view('admin.organization.tickets.config.add-tickets',compact('dataTickets'));
     }
     /**

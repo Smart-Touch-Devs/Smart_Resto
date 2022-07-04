@@ -34,13 +34,8 @@
             <ul class="nav navbar-nav d-xl-none">
                 <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon" data-feather="menu"></i></a></li>
             </ul>
-            <ul class="nav navbar-nav bookmark-icons">
-                <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-email.html" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Email"><i class="ficon" data-feather="mail"></i></a></li>
-                <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-chat.html" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Chat"><i class="ficon" data-feather="message-square"></i></a></li>
-            </ul>
         </div>
         <ul class="nav navbar-nav align-items-center ms-auto">
-            <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
             <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
                 <div class="search-input">
                     <div class="search-input-icon"><i data-feather="search"></i></div>
@@ -49,35 +44,11 @@
                     <ul class="search-list search-list-main"></ul>
                 </div>
             </li>
-            <li class="nav-item dropdown dropdown-cart me-25"><a class="nav-link" href="#" data-bs-toggle="dropdown"><i class="ficon" data-feather="mail"></i><span class="badge rounded-pill bg-primary badge-up cart-item-count">1</span></a>
-
-            </li>
-            <li class="nav-item dropdown dropdown-notification me-25"><a class="nav-link" href="#" data-bs-toggle="dropdown"><i class="ficon" data-feather="bell"></i><span class="badge rounded-pill bg-danger badge-up">1</span></a>
-                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
-                    <li class="dropdown-menu-header">
-                        <div class="dropdown-header d-flex">
-                            <h4 class="notification-title mb-0 me-auto">Notifications</h4>
-                            <div class="badge rounded-pill badge-light-primary">1 Nouvelle notification</div>
-                        </div>
-                    </li>
-                    <li class="scrollable-container media-list"><a class="d-flex" href="#">
-                            <div class="list-item d-flex align-items-start">
-                                <div class="me-1">
-                                    <div class="avatar"><img src="{{ asset('dashboard/app-assets/images/portrait/small/avatar-s-15.jpg') }}" alt="avatar" width="32" height="32"></div>
-                                </div>
-                                <div class="list-item-body flex-grow-1">
-                                    <p class="media-heading"><span class="fw-bolder">Demande de réclamation</span></p><small class="notification-text">Achat de ticket : Compte non mis à jours</small>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </li>
             <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="user-nav d-sm-flex d-none"><span class="user-name fw-bolder">{{ Auth::user()->firstname }}</span><span class="user-status">Super administrateur</span></div><span class="avatar">
                         <img class="round" src="{{ asset('dashboard/app-assets//images/portrait/small/avatar.png')}}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a class="dropdown-item" href="page-profile.html"><i class="me-50" data-feather="user"></i> Profile</a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="me-50" data-feather="user"></i> Profile</a>
                     <div class="dropdown-divider"></div>
                     <form action="{{ route('admin.logout') }}" method="POST">
                         @csrf

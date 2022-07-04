@@ -399,5 +399,5 @@
     });
 </script>
 
+@include('admin.components.footer')
 @endsection
-

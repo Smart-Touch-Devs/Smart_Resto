@@ -36,13 +36,7 @@
         <div class="navbar-container main-menu-content" data-menu="menu-container">
             <!-- include ../../../includes/mixins-->
             <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="index.html" data-bs-toggle="dropdown"><i data-feather="home"></i><span data-i18n="Dashboards">Dashboards</span></a>
-                    <ul class="dropdown-menu" data-bs-popper="none">
-                        <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="dashboard-analytics.html" data-bs-toggle="" data-i18n="Analytics"><i data-feather="activity"></i><span data-i18n="Analytics">Analytics</span></a>
-                        </li>
-                        <li class="active" data-menu=""><a class="dropdown-item d-flex align-items-center" href="dashboard-ecommerce.html" data-bs-toggle="" data-i18n="eCommerce"><i data-feather="shopping-cart"></i><span data-i18n="eCommerce">eCommerce</span></a>
-                        </li>
-                    </ul>
+                <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="{{ route('admin.home') }}"><i data-feather="home"></i><span data-i18n="Dashboards">Dashboards</span></a>
                 </li>
                 <li class="dropdown nav-item" data-menu="dropdown"><a class=" nav-link d-flex align-items-center" href="{{ asset('admin/role') }}"><i data-feather="package"></i><span data-i18n="Apps">Configuration Rôle</span></a>
                 </li>

@@ -21,10 +21,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $actuDate = Carbon::now();
         $actuDate = $actuDate->isoFormat('dddd');
-
         switch ($actuDate) {
             case 'lundi':
                 $dayId = 1;

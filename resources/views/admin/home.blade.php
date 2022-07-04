@@ -12,8 +12,7 @@
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
     <div class="content-wrapper container-xxl p-0">
-        <div class="content-header row">
-        </div>
+
         <div class="content-body">
             <!-- Dashboard Ecommerce Starts -->
             <section id="dashboard-ecommerce">
@@ -115,8 +114,8 @@
                                             <tr>
                                                 <th>Structures</th>
                                                 <th>Nombre d'employéés</th>
-                                                <th>Nombre de groupes</th>
-                                                <th>Nombre de restaurants</th>
+                                                <th>Groupes</th>
+                                                <th>Restaurants</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -156,7 +155,7 @@
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <span
-                                                            class="fw-bolder me-1">{{count($organization->restaurants)}}</span>
+                                                            class="fw-bolder me-1 ">{{count($organization->restaurants)}}</span>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -165,6 +164,7 @@
                                             @endforelse
                                         </tbody>
                                     </table>
+                                    {{ $organizations->links() }}
                                 </div>
                             </div>
                         </div>
@@ -180,9 +180,9 @@
                                         <thead>
                                             <tr>
                                                 <th>Restaurant</th>
-                                                <th>Nombre de catégories</th>
+                                                <th>Catégories</th>
                                                 <th>Nombre de plats</th>
-                                                <th>Disponibilité</th>
+                                                {{-- <th>Disponibilité</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -213,28 +213,29 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="d-flex align-items-center">
-                                                        <span>{{count($restaurant->categories)}}</span>
+                                                        <span class="text-center">{{count($restaurant->categories)}}</span>
                                                     </div>
                                                 </td>
                                                 <td class="text-nowrap">
                                                     <div class="d-flex flex-column">
                                                         <span
-                                                            class="fw-bolder mb-25">{{count($restaurant->dishes)}}</span>
+                                                            class="fw-bolder mb-25 text-center">{{count($restaurant->dishes)}}</span>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     <div class="d-flex align-items-center">
                                                         <div style="width: 20px; height: 20px;"
                                                             class="{{ $restaurant->availability ? 'bg-success' : 'bg-danger' }} rounded-circle mx-auto">
                                                         </div>
                                                     </div>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                             @empty
-
+                                            <p class="mx-auto small">Aucune Structure disponible</p>
                                             @endforelse
                                         </tbody>
                                     </table>
+                                    {{ $restaurants->links() }}
                                 </div>
                             </div>
                         </div>
@@ -254,6 +255,5 @@
 <script src="{{asset('dashboard/app-assets/vendors/js/charts/apexcharts.min.js')}}"></script>
 <!-- BEGIN: Footer-->
 @include('admin.components.footer')
-<button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
 <!-- END: Footer-->
 @endsection

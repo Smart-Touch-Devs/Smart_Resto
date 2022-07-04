@@ -294,6 +294,7 @@
 </div>
 </div>
 
+@include('admin.components.footer')
 <script src="{{ asset('js/changeStatus.js') }}"></script>
 <script>
     const form = document.querySelector('#delete__dish__form')
@@ -304,5 +305,4 @@
         delete__dish__btn.addEventListener('click', _ => form.setAttribute('action', route))
     });
 </script>
-
 @endsection

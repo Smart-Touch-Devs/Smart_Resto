@@ -22,19 +22,11 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        $restaurants = Restaurant::all();
+        $restaurants = Restaurant::paginate(5);
         return view('admin.restaurant.list', ['restaurants' => $restaurants]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+  
 
     /**
      * Store a newly created resource in storage.
@@ -101,7 +93,7 @@ class RestaurantController extends Controller
         ]);
 
         $restaurant = User::where('uuid', $request->uuid)->first();
-        
+
         $restaurant->update([
             'status' => !$restaurant->status
         ]);

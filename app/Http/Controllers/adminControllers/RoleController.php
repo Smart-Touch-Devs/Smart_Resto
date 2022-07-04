@@ -20,15 +20,6 @@ class RoleController extends Controller
         return view('admin.role.add-role', compact('roles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,24 +27,14 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $request->validate(['label' => 'required']);
-        $input = $request->all();
-        Role::create($input);
-        return redirect()->route('role.index')->with('success', 'Le rôle à été ajouté avec succes');
-    }
+    // public function store(Request $request)
+    // {
+    //     $request->validate(['label' => 'required']);
+    //     $input = $request->all();
+    //     Role::create($input);
+    //     return redirect()->route('role.index')->with('success', 'Le rôle à été ajouté avec succes');
+    // }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -82,13 +63,13 @@ class RoleController extends Controller
         return redirect()->route('role.index')->with('success', 'Modification effectuée avec succès');
     }
 
-    public function changeStatus(Request $request)
-    {
-        $role = Role::find($request->uuid);
-        $isUpdated = $role->update([
-            'status' => !$role->status
-        ]);
+    // public function changeStatus($id)
+    // {
+    //     $role = Role::find($id);
+    //     $isUpdated = $role->update([
+    //         'status' => 0
+    //     ]);
 
-        if($isUpdated) return 'Role is updated!';
-    }
+    //     if($isUpdated) return 'Role is updated!';
+    // }
 }

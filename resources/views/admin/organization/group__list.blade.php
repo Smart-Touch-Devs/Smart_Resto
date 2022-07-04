@@ -110,7 +110,7 @@
                                                             <th class="text-center">Action</th>
                                                         </tr>
                                                     </thead>
-                                                   
+
                                                     <tbody>
                                                         @foreach ($groups as $group)
                                                         <tr>
@@ -118,15 +118,15 @@
                                                             <td>
                                                                 {{ $group->name }}
                                                             </td>
-                                                            
+
                                                             <td>
                                                                 {{ $group->localization }}
                                                             </td>
-                                                            
+
                                                             <td>
                                                                 {{ $group->phone }}
                                                             </td>
-                                                           
+
                                                             <td>
                                                                 <form action="{{ route('restaurant.changeStatus') }}" method="post">
                                                                     <div class="form-check form-check-success form-switch">
@@ -135,7 +135,7 @@
                                                                     </div>
                                                                 </form>
                                                             </td>
-                                                            <td class="d-flex">  
+                                                            <td class="d-flex">
                                                                 <a href="">
                                                                     @csrf
                                                                     <button type="submit" class="dropdown-item d-flex align-items-center">
@@ -169,7 +169,7 @@
                                                             </td>
                                                         </tr>
                                                         @endforeach
-                              
+
                                                     </tbody>
 
 
@@ -330,5 +330,5 @@
         </div>
     </div>
 </div>
-
+@include('admin.components.footer')
 @endsection

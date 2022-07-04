@@ -105,7 +105,7 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($restaurants as $restaurant)
+                                    @forelse ($restaurants as $restaurant)
                                     <tr>
                                         <td>
                                             @if (stristr($restaurant->user->profile, 'avatar.png'))
@@ -189,9 +189,12 @@
                                             </form>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    @empty
+                                    <p class="mx-auto small">Aucun restaurant disponible</p>
+                                    @endforelse
                                 </tbody>
                             </table>
+                            {{ $restaurants->links() }}
                         </div>
                     </div>
                 </div>
@@ -387,7 +390,7 @@
         </div>
     </div>
 </div>
-
+@include('admin.components.footer')
 <script src="{{ asset('js/changeStatus.js') }}"></script>
 
 @endsection

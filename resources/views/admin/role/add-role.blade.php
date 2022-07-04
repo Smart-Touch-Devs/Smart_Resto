@@ -28,21 +28,19 @@
             <div class="content-header row">
             </div>
             <div class="content-body">
-
-
                 <!-- Role cards -->
-                <div class="row">
-                    <div class="col-9">
+                <div class="row ">
+                    <div class="col-9 ">
                         <h2 class="content-header-title float-start mb-0">Super Administrateur</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item mx-2">
-                                    <a href="#">Roles</a>
+                                    <a href="#">Rôles</a>
                                 </li>
                             </ol>
                         </div>
                       </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3">
+                    {{-- <div class="col-xl-3 col-lg-3 col-md-3">
                         <div class="card">
                             <div class="card-body text-sm-end text-center ps-sm-0">
                                 <a href="javascript:void(0)" data-bs-target="#addRoleModal" data-bs-toggle="modal" class="stretched-link text-nowrap add-new-role">
@@ -50,7 +48,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 @if ($message = Session::get('success'))
                 <section id="alerts-closable">
@@ -72,7 +70,7 @@
                 @endif
                 <div class="row">
                     @foreach ($roles as $role)
-                    <div class="col-xl-4 col-lg-6 col-md-6">
+                    <div class="col-xl-4 col-lg-6 col-md-6 my-2">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
@@ -81,18 +79,20 @@
                                 <div class="d-flex justify-content-between align-items-end mt-1 pt-25">
                                     <div class="role-heading">
                                         <a href="{{ route('role.edit',$role->id) }}" class="">
-                                            <small class="fw-bolder">Editer</small>
+                                            <button class="btn btn-primary">
+                                                <small class="fw-bolder">Editer</small>
+                                            </button>
                                         </a>
                                     </div>
-                                    <div class="d-flex flex-column">
+                                    {{-- <div class="d-flex flex-column">
                                         <label class="form-check-label mb-50" for="customSwitch4">Status</label>
-                                        <form action="{{ route('role.changeStatus') }}" method="post">
+                                        <form action="{{ route('role.changeStatus',$role->id) }}" method="post">
                                             <div class="form-check form-check-success form-switch">
                                                 <input type="hidden" name="uuid" value="{{ $role->id }}" required>
                                                 <input type="checkbox" {{ $role->status ? "checked" : null }} class="form-check-input statusInput">
                                             </div>
                                         </form>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
             </div>
         </div>
     </div>
-
+    @include('admin.components.footer')
     <script src="{{ asset('js/changeStatus.js') }}"></script>
     <!-- END:
 

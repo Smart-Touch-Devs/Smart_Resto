@@ -69,6 +69,7 @@
         </div>
         </div>
     </div>
+    @include('admin.components.footer')
     <script src="{{ asset('dashboard/app-assets/vendors/js/ui/jquery.sticky.js') }}"></script>
     <script src="{{ asset('dashboard/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dashboard/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js') }}"></script>
